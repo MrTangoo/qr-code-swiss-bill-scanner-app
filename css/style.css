@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: none;
+    font-family: Roboto;
+}
+
+nav {
+    background-color: rgba(19, 81, 120);
+    width: 100%;
+    overflow: auto;
+    border-bottom: 1px solid black;
+}
+
+.logo {
+    color: white;
+    padding-left: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.main-container {
+    padding-top: 2%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.facture {
+    width: 28%;
+    float: right;
+    margin-right: 2%;
+}
+
+.title {
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid rgba(19, 81, 120);
+}
+
+.input-container {
+    padding-top: 8%
+}
+
+.main-grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+}
+
+#iban,
+#supplier,
+#total-ttc,
+#cash {
+    height: 30%;
+    width: 80%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    padding-left: 2%;
+    border-color: rgb(42, 123, 173);
+    border-style: groove;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    background-color: rgb(19, 81, 120);
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.display-pdf {
+    border-left: 2px solid rgba(19, 81, 120);
+    padding-left: 4%;
+    margin-left: 5%;
+}
+
+#drop-area {
+    width: 200px;
+    height: 70px;
+    padding-top: 2%;
+    margin-top: 2%;
+    text-align: center;
+    border: 2px dashed rgba(19, 81, 120);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#drop-area.hover {
+    background-color: rgba(202, 202, 202, 0.678);
+}
+
+.btn {
+    margin-top: 35%;
+    text-align: right
+}
+
+#save-btn {
+    background-color: rgb(19, 81, 120);
+    color: white;
+    border-radius: 5px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px
+}
+
+i {
+    color: rgb(19, 81, 120);
+    padding-bottom: 5%;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-left-color: rgb(19, 81, 120);
+    animation: spin 1s infinite linear;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: none;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#result {
+    padding-top: 5%;
+}
