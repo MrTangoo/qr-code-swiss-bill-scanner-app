@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b80ef16c6db5fecc6f9b11f7f26535abf9b1709b',
+        'reference' => '6b4425d5ef05dbdaac4fccab6a526492438b48ba',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b80ef16c6db5fecc6f9b11f7f26535abf9b1709b',
+            'reference' => '6b4425d5ef05dbdaac4fccab6a526492438b48ba',
             'dev_requirement' => false,
         ),
         'khanamiryan/qrcode-detector-decoder' => array(

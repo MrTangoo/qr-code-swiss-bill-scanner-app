@@ -1,30 +1,25 @@
-<!-- Versionning -->
-<!--
-    Version     : '1.0.0'
-    Date        : '04.09.24'
-    Auteur      : 'GRI/MDE'
-    Description : 'On récupère le ficher, le transforme en image et on lit son QR Code pour recevoir les informations.'
--->
-<!--
-ChangeLog  04.09.24 | 1.0.0 MDE : Adaptation du code pour php vanilla
-ChangeLog  10.09.24 | 1.0.1 MDE : Séparation en plusieurs fonction
--->
+
 
 <?php
 
-require "../vendor/autoload.php";
+// require "../vendor/autoload.php";
 
 use Zxing\QrReader;
 
-function handleFileUpload()
+function fileUpload()
 {
     // Vérifier si un fichier a été téléchargé
     if (!isset($_FILES["pdfFile"])) {
         redirectWithError("Aucun fichier sélectionné.");
         return false;
     }
-    $file = $_FILES["pdfFile"];
 
+    $file = $_FILES["pdfFile"];
+    return handleFileUpload($file);
+}
+
+function handleFileUpload($file)
+{
     // Vérifier les erreurs de téléchargement
     if ($file["error"] !== UPLOAD_ERR_OK) {
         redirectWithError("Erreur lors du téléchargement du fichier.");
@@ -42,6 +37,7 @@ function handleFileUpload()
 
     return $pdfFilePath;
 }
+
 
 function convertPdfToImage($pdfFilePath)
 {
@@ -122,7 +118,7 @@ function redirectWithData($data, $pdfFilePath)
     exit();
 }
 
-$pdfFilePath = handleFileUpload();
+$pdfFilePath = fileUpload();
 if (!$pdfFilePath) {
     exit();
 }
