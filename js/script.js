@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dropArea.addEventListener('drop', handleDrop, false);
 
+    dropArea.addEventListener('click', () => fileInput.click(), false);
+
     function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
