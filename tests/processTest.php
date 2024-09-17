@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Zxing\QrReader;
 
 
+
 class ProcessTest extends TestCase
 {
 
@@ -11,13 +12,17 @@ class ProcessTest extends TestCase
 
     private $outputImagePath;
 
+    // Méthode exécutée avant chaque test
     protected function setUp(): void
     {
+        // Définit le chemin du fichier PDF à convertir
         $this->pdfPath = __DIR__ . '/sample/test.pdf';
 
+        // Définit le chemin de sortie pour l'image générée
         $this->outputImagePath = '../uploads/output_image.jpg';
     }
 
+    // Test pour vérifier si la conversion du PDF en image est réussie
     public function testConvertPdfToImageSuccessful()
     {
         $result = convertPdfToImage($this->pdfPath);
@@ -26,6 +31,7 @@ class ProcessTest extends TestCase
         $this->assertFileExists($this->outputImagePath);
     }
 
+    // Test pour vérifier si la lecture du code QR dans l'image est réussie
     public function testReadQrCodeFromImageSuccessful()
     {
         $result = readQrCodeFromImage($this->outputImagePath);
@@ -33,6 +39,7 @@ class ProcessTest extends TestCase
         $this->assertNotEmpty($result);
     }
 
+    // Méthode pour supprimer l'image générée après les tests
     public function delete()
     {
         if (file_exists($this->outputImagePath)) {
