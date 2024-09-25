@@ -17,23 +17,23 @@ require "../vendor/autoload.php";
 
 use Zxing\QrReader;
 
-function fileUpload(): string|false
+function fnFileUpload(): string|false
 {
     // Vérifier si un fichier a été téléchargé
     if (!isset($_FILES["pdfFile"])) {
-        redirectWithError("Aucun fichier sélectionné.");
+        fnRedirectWithError("Aucun fichier sélectionné.");
         return false;
     }
 
     $arrFile = $_FILES["pdfFile"];
-    return handleFileUpload($arrFile);
+    return fnHandleFileUpload($arrFile);
 }
 
-function handleFileUpload(array $arrFile): string|false
+function fnHandleFileUpload(array $arrFile): string|false
 {
     // Vérifier les erreurs de téléchargement
     if ($arrFile["error"] !== UPLOAD_ERR_OK) {
-        redirectWithError("Erreur lors du téléchargement du fichier.");
+        fnRedirectWithError("Erreur lors du téléchargement du fichier.");
         return false;
     }
 
@@ -42,28 +42,28 @@ function handleFileUpload(array $arrFile): string|false
 
     // Déplacer le fichier téléchargé vers le répertoire "uploads"
     if (!move_uploaded_file($arrFile["tmp_name"], $strPdfFilePath)) {
-        redirectWithError("Erreur lors du déplacement du fichier téléchargé.");
+        fnRedirectWithError("Erreur lors du déplacement du fichier téléchargé.");
         return false;
     }
 
     return $strPdfFilePath;
 }
 
-function convertPdfToImage(string $strPdfFilePath): string|false
+function fnConvertPdfToImage(string $strPdfFilePath): string|false
 {
     // Définir le chemin pour enregistrer l'image JPG
     $strImagePath = "../uploads/output_image.jpg";
 
     try {
         // Utiliser Imagick pour convertir le PDF en image JPG
-        $objImagick = new Imagick();
-        $objImagick->setResolution(300, 300);
-        $objImagick->readImage($strPdfFilePath . "[0]"); // Lit la première page du PDF
-        $objImagick->setImageFormat("jpg");
-        $objImagick->writeImage($strImagePath);
-    } catch (Exception $objException) {
-        redirectWithError(
-            "Erreur lors de la conversion du PDF en image : " . $objException->getMessage()
+        $oImagick = new Imagick();
+        $oImagick->setResolution(300, 300);
+        $oImagick->readImage($strPdfFilePath . "[0]"); // Lit la première page du PDF
+        $oImagick->setImageFormat("jpg");
+        $oImagick->writeImage($strImagePath);
+    } catch (Exception $oException) {
+        fnRedirectWithError(
+            "Erreur lors de la conversion du PDF en image : " . $oException->getMessage()
         );
         return false;
     }
@@ -71,22 +71,22 @@ function convertPdfToImage(string $strPdfFilePath): string|false
     return $strImagePath;
 }
 
-function readQrCodeFromImage(string $strImagePath): string|false
+function fnReadQrCodeFromImage(string $strImagePath): string|false
 {
     // Lire le code QR à partir de l'image
-    $objQrCode = new QrReader($strImagePath);
-    $strText = $objQrCode->text();
+    $oQrCode = new QrReader($strImagePath);
+    $strText = $oQrCode->text();
 
     // Vérifier si un code QR a été détecté
     if (!$strText) {
-        redirectWithError("Aucun code QR détecté.");
+        fnRedirectWithError("Aucun code QR détecté.");
         return false;
     }
 
     return $strText;
 }
 
-function extractDataFromQrCode(string $strText): array
+function fnExtractDataFromQrCode(string $strText): array
 {
     $arrLines = explode("\n", $strText);
     $arrLines = array_filter($arrLines, fn($strLine) => trim($strLine) !== "");
@@ -100,13 +100,13 @@ function extractDataFromQrCode(string $strText): array
     ];
 }
 
-function redirectWithError(string $strMessage): void
+function fnRedirectWithError(string $strMessage): void
 {
     header("Location: ../index.php?result=" . urlencode($strMessage));
     exit();
 }
 
-function redirectWithData(array $arrData, string $strPdfFilePath): void
+function fnRedirectWithData(array $arrData, string $strPdfFilePath): void
 {
     $strPdfUrl = "uploads/" . basename($strPdfFilePath);
     $strPdfName = basename($strPdfFilePath);
@@ -129,20 +129,20 @@ function redirectWithData(array $arrData, string $strPdfFilePath): void
 }
 
 // Appel des fonctions
-$strPdfFilePath = fileUpload();
+$strPdfFilePath = fnFileUpload();
 if (!$strPdfFilePath) {
     exit();
 }
 
-$strImagePath = convertPdfToImage($strPdfFilePath);
+$strImagePath = fnConvertPdfToImage($strPdfFilePath);
 if (!$strImagePath) {
     exit();
 }
 
-$strQrCodeText = readQrCodeFromImage($strImagePath);
+$strQrCodeText = fnReadQrCodeFromImage($strImagePath);
 if (!$strQrCodeText) {
     exit();
 }
 
-$arrData = extractDataFromQrCode($strQrCodeText);
-redirectWithData($arrData, $strPdfFilePath);
+$arrData = fnExtractDataFromQrCode($strQrCodeText);
+fnRedirectWithData($arrData, $strPdfFilePath);

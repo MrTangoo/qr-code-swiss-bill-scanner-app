@@ -5,80 +5,76 @@ use Zxing\QrReader;
 
 
 
+
 class ProcessTest extends TestCase
 {
 
-    private $pdfPath;
+    private $strPdfPath;
 
-    private $outputImagePath;
+    private $strOutputImagePath;
 
     // Méthode exécutée avant chaque test
     protected function setUp(): void
     {
         // Définit le chemin du fichier PDF à convertir
-        $this->pdfPath = __DIR__ . '/sample/test.pdf';
+        $this->strPdfPath = 'sample/test.pdf';
 
         // Définit le chemin de sortie pour l'image générée
-        $this->outputImagePath = '../uploads/output_image.jpg';
+        $this->strOutputImagePath = '../uploads/output_image.jpg';
     }
 
     // Test pour vérifier si la conversion du PDF en image est réussie
     public function testConvertPdfToImageSuccessful()
     {
-        $result = convertPdfToImage($this->pdfPath);
+        $strResult = fnConvertPdfToImage($this->strPdfPath);
 
-        $this->assertEquals($result, $this->outputImagePath);
-        $this->assertFileExists($this->outputImagePath);
+        $this->assertEquals($strResult, $this->strOutputImagePath);
+        $this->assertFileExists($this->strOutputImagePath);
     }
 
     // Test pour vérifier si la lecture du code QR dans l'image est réussie
     public function testReadQrCodeFromImageSuccessful()
     {
-        $result = readQrCodeFromImage($this->outputImagePath);
-        $this->assertNotFalse($result);
-        $this->assertNotEmpty($result);
-    }
+        $strResult = fnReadQrCodeFromImage($this->strOutputImagePath);
+        $this->assertNotFalse($strResult);
+        $this->assertNotEmpty($strResult);
 
-    // Méthode pour supprimer l'image générée après les tests
-    public function delete()
-    {
-        if (file_exists($this->outputImagePath)) {
-            unlink($this->outputImagePath);
+        if (file_exists($this->strOutputImagePath)) {
+            unlink($this->strOutputImagePath);
         }
     }
 }
 
-
-function convertPdfToImage($pdfFilePath)
+function fnConvertPdfToImage($strPdfFilePath)
 {
     // Définir le chemin pour enregistrer l'image JPG
-    $imagePath = "../uploads/output_image.jpg";
+    $strImagePath = "../uploads/output_image.jpg";
 
     try {
         // Utiliser Imagick pour convertir le PDF en image JPG
-        $imagick = new Imagick();
-        $imagick->setResolution(300, 300);
-        $imagick->readImage($pdfFilePath . "[0]"); // Lit la première page du PDF
-        $imagick->setImageFormat("jpg");
-        $imagick->writeImage($imagePath);
+        $oImagick = new Imagick();
+        $oImagick->setResolution(300, 300);
+        $oImagick->readImage($strPdfFilePath . "[0]"); // Lit la première page du PDF
+        $oImagick->setImageFormat("jpg");
+        $oImagick->writeImage($strImagePath);
     } catch (Exception $e) {
         return false;
     }
 
-    return $imagePath;
+    return $strImagePath;
 }
 
-function readQrCodeFromImage($imagePath)
+function fnReadQrCodeFromImage($strImagePath)
 {
     // Lire le code QR à partir de l'image
-    $qrcode = new QrReader($imagePath);
-    $text = $qrcode->text();
+    $oQrcode = new QrReader($strImagePath);
+    $strText = $oQrcode->text();
 
     // Vérifier si un code QR a été détecté
-    if (!$text) {
-        redirectWithError("Aucun code QR détecté.");
+    if (!$strText) {
+        fnRedirectWithError("Aucun code QR détecté.");
         return false;
     }
 
-    return $text;
+    return $strText;
 }
