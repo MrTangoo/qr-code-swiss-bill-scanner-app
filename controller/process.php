@@ -15,8 +15,6 @@ ChangeLog  12.09.24 | 1.0.2 MDE : Modification des noms de variables
 
 require "../vendor/autoload.php";
 
-use Zxing\QrReader;
-
 function fnFileUpload(): string|false
 {
     // Vérifier si un fichier a été téléchargé
@@ -74,8 +72,8 @@ function fnConvertPdfToImage(string $strPdfFilePath): string|false
 function fnReadQrCodeFromImage(string $strImagePath): string|false
 {
     // Lire le code QR à partir de l'image
-    $oQrCode = new QrReader($strImagePath);
-    $strText = $oQrCode->text();
+    $oQrCode = new Libern\QRCodeReader\QRCodeReader();
+    $strText = $oQrCode->decode($strImagePath);
 
     // Vérifier si un code QR a été détecté
     if (!$strText) {

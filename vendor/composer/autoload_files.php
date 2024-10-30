@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-    'a9ed0d27b5a698798a89181429f162c5' => $vendorDir . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
+    '74f78b6b99713ff89d56028b614df71a' => $vendorDir . '/libern/qr-code-reader/src/lib/common/customFunctions.php',
 );

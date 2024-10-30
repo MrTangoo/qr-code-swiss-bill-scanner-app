@@ -9,7 +9,7 @@ class ComposerStaticInit70faf2c3bb31ebb33b3abb856e20dae7
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-        'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
+        '74f78b6b99713ff89d56028b614df71a' => __DIR__ . '/..' . '/libern/qr-code-reader/src/lib/common/customFunctions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -21,6 +21,10 @@ class ComposerStaticInit70faf2c3bb31ebb33b3abb856e20dae7
         array (
             'PhpParser\\' => 10,
         ),
+        'L' => 
+        array (
+            'Libern\\QRCodeReader\\' => 20,
+        ),
         'D' => 
         array (
             'DeepCopy\\' => 9,
@@ -30,11 +34,15 @@ class ComposerStaticInit70faf2c3bb31ebb33b3abb856e20dae7
     public static $prefixDirsPsr4 = array (
         'Zxing\\' => 
         array (
-            0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
+            0 => __DIR__ . '/..' . '/libern/qr-code-reader/src/lib',
         ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'Libern\\QRCodeReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/libern/qr-code-reader/src',
         ),
         'DeepCopy\\' => 
         array (
