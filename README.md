@@ -41,3 +41,15 @@ Just before `</policymap>` in `/etc/ImageMagick-7/policy.xml` you have to add th
 ```sh
 # To install the QR code decoder / reader library
 composer require khanamiryan/qrcode-detector-decoder
+
+```
+## Test phpunit
+### Run
+```sh
+# First you need to go in tests directory
+cd tests
+
+# Then run the tests
+../vendor/bin/phpunit --bootstrap ../vendor/autoload.php processTest.php
+
+
